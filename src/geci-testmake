@@ -34,7 +34,7 @@ function get_help() {
   echo
   echo "Nota:"
   echo "  Para configurar el entorno por primera vez consulta:"
-  echo "  https://github.com/IslasGECI/misctools"
+  echo "  https://github.com/IslasGECI/testmake"
   echo
   exit 1
 }

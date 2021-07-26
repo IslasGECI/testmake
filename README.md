@@ -1,4 +1,4 @@
-# 🛠️ Herramientas Misceláneas (MiscTools)
+# 🛠️ Herramientas Misceláneas (testmake)
 
 Conjunto de herramientas pequeñas y prototipos del equipo de Ciencia de Datos de GECI.
 
@@ -15,7 +15,7 @@ Conjunto de herramientas pequeñas y prototipos del equipo de Ciencia de Datos d
 
 ## 📋 Prerequisitos para `geci-testmake`
 
-Estas instrucciones son para instalar y configurar MiscTools en Ubuntu 20.04 (Focal Fossa).
+Estas instrucciones son para instalar y configurar testmake en Ubuntu 20.04 (Focal Fossa).
 
 Instala cURL, Git, Make y Docker.
 
@@ -68,14 +68,14 @@ Ejecuta `~/.profile` para cargar tus credenciales de Bitbucket como variables de
 . ~/.profile
 ```
 
-## 🏗️ Instalación de MiscTools
+## 🏗️ Instalación de testmake
 
 ```shell
-git clone https://github.com/IslasGECI/misctools.git
-cd misctools
+git clone https://github.com/IslasGECI/testmake.git
+cd testmake
 sudo make install
 cd ..
-sudo rm --recursive misctools
+sudo rm --recursive testmake
 ```
 
 ## ✅ Verifica la instalación
@@ -86,5 +86,5 @@ Para verificar la instalación ejecutaremos una de las herramientas instaladas:
 geci-testmake hola mundo
 ```
 
-Un mensaje te confirmará que `geci-testmake` se ejecutó exitosamente y por lo tanto MiscTools fue
+Un mensaje te confirmará que `geci-testmake` se ejecutó exitosamente y por lo tanto testmake fue
 instalado correctamente.

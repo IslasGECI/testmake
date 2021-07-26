@@ -15,6 +15,6 @@ jobs:
     - name: Copia repositorio
       uses: actions/checkout@v2
     - name: Construye imagen
-      run: docker build --tag islasgeci/misctools .
+      run: docker build --tag islasgeci/testmake .
     - name: Ejecuta pruebas
-      run: docker run islasgeci/misctools make tests
+      run: docker run islasgeci/testmake make tests
