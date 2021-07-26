@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-#
-# Usa jsonschema para verificar la estructura de analyses.json
-
-INSTANCE=${1:-analyses.json}
-jsonschema --instance $INSTANCE ~/.schemas/analyses-schema.json
