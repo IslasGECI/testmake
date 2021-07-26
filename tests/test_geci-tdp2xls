@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+rm metadatos_*.csv --force # La opción '--force' evita error si los archivos no existen
+rm tabla.xlsx --force # La opción '--force' evita error si los archivos no existen
+geci-tdp2xls
+ssconvert --export-file-per-sheet tabla.xlsx tabla.csv
+md5_expected="fbc9207e1e67f54f1aef5cea32f88bad"
+md5_gotten=$(cat $(ls tabla.csv*) | md5sum | cut --delimiter=" " --fields=1)
+rm tabla.csv*
+echo "Esperado: $md5_expected"
+echo "Obtenido: $md5_gotten"
+if [ "$md5_expected" = "$md5_gotten" ]; then
+    echo "Los picadillos son iguales"
+    exit 0
+else
+    echo "Los picadillos son distintos"
+    exit 1
+fi

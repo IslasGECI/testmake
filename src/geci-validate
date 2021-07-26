@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+#
+# Verifica que un data package cumple con el protocolo de GECI
+
+# ARGUMENTOS:
+NOMBRE=${0##*/}
+OPCIONES_GOODTABLES=${@:1:$#-1}
+DATAPACKAGE=${!#}
+
+# CONSTANTES:
+DIR0=$PWD
+
+# VARIABLES:
+ERROR=0
+
+# FUNCIONES:
+function get_help {
+  echo "$NOMBRE verifica que un data package cumple con el protocolo de GECI."
+  echo
+  echo "Sintaxis:"
+  echo "  $NOMBRE [[OPCIÓN] | [[OPCIONES DE GOODTABLES] RUTA]"
+  echo
+  echo "  OPCIÓN:   Alguna de las opciones que se enlistan abajo"
+  echo "  RUTA:     Ruta del directorio donde se encuentra 'datapackage.json'"
+  echo
+  echo "Opciones:"
+  echo "  -h, --help     Despliega este mensaje de ayuda"
+  echo "  -v, --version  Muestra la versión de $NOMBRE"
+  echo
+  echo "Ejemplos:"
+  echo "  cd <RUTA-A-DATAPACKAGE> && $NOMBRE"
+  echo "  $NOMBRE <RUTA-A-DATAPACKAGE>"
+  echo "  $NOMBRE --skip-checks duplicate-row <RUTA-A-DATAPACKAGE>"
+  echo
+}
+
+function get_version {
+  echo "$NOMBRE v0.1.0+$(md5sum $0 | cut --characters=1-4)"
+}
+
+function validate {
+  # Despliega la ruta del data package
+  echo
+  echo "---"
+  cd $DATAPACKAGE
+  pwd
+
+  # Valida el data package
+  goodtables validate $OPCIONES_GOODTABLES datapackage.json
+  ERROR=$(($ERROR+$?))
+  jsonschema --instance datapackage.json ~/.schemas/tabular-data-package.json
+  ERROR=$(($ERROR+$?))
+  jsonschema --instance datapackage.json ~/.schemas/protocolo-geci.json
+  ERROR=$(($ERROR+$?))
+  cd $DIR0
+  echo "..."
+  exit $ERROR
+}
+
+# MAIN:
+if [[ $# == 0 ]]; then
+  validate
+fi
+
+if [[ $# == 1 ]]; then
+  case "$1" in
+    -h | --help ) get_help ;;
+    -v | --version ) get_version ;;
+    * ) validate ;;
+  esac
+fi
+
+if [[ $# > 1 ]]; then
+  validate
+fi

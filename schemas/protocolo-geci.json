@@ -1,0 +1,191 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Tabular Data Package",
+  "description": "Tabular Data Package is a simple specification for data access and delivery of tabular data.",
+  "type": "object",
+  "required": [
+    "institution",
+    "name"
+  ],
+  "properties": {
+    "comment": {
+      "title": "Comment",
+      "description": "Miscellaneous information about the data or methods used to produce it.",
+      "type": "string"
+    },
+    "contributors": {
+      "title": "Contributors",
+      "description": "The contributors to this descriptor.",
+      "type": "array"
+    },
+    "description": {
+      "title": "Description",
+      "description": "A text description. Markdown is encouraged.",
+      "type": "string"
+    },
+    "history": {
+      "title": "History",
+      "description": "Provides an audit trail for modifications to the original data. Well-behaved generic netCDF filters will automatically append their name and the parameters with which they were invoked to the global history attribute of an input netCDF file. We recommend that each line begin with a timestamp indicating the date and time of day that the program was executed.",
+      "type": "string"
+    },
+    "homepage": {
+      "title": "Home Page",
+      "description": "The home on the web that is related to this data package.",
+      "type": "string"
+    },
+    "institution": {
+      "title": "Institution",
+      "description": "Specifies where the original data was produced.",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "description": "An identifier string. Lower case characters with `.`, `_`, `-` and `/` are allowed.",
+      "type": "string",
+      "context": "This is ideally a url-usable and human-readable name. Name `SHOULD` be invariant, meaning it `SHOULD NOT` change when its parent descriptor is updated."
+    },
+    "profile": {
+      "title": "Profile",
+      "description": "The profile of this descriptor.",
+      "type": "string"
+    },
+    "references": {
+      "title": "References",
+      "description": "Published or web-based references that describe the data or methods used to produce it.",
+      "type": "string"
+    },
+    "sources": {
+      "title": "Sources",
+      "description": "The raw sources for this resource.",
+      "type": "array"
+    },
+    "title": {
+      "title": "Title",
+      "description": "A global attribute that is a character array providing a succinct description of what is in the dataset.",
+      "type": "string"
+    },
+    "titulo": {
+      "title": "Título",
+      "description": "Traducción al español de 'title'.",
+      "type": "string"
+    },
+    "resources": {
+      "title": "Tabular Data Resources",
+      "description": "An `array` of Tabular Data Resource objects, each compliant with the [Tabular Data Resource](/tabular-data-resource/) specification.",
+      "type": "array",
+      "items": {
+        "title": "Tabular Data Resource",
+        "description": "A Tabular Data Resource.",
+        "type": "object",
+        "required": [
+          "title",
+          "titulo"
+        ],
+        "properties": {
+          "description": {
+            "title": "Description",
+            "description": "A text description. Markdown is encouraged.",
+            "type": "string"
+          },
+          "id": {
+            "title": "Identification",
+            "description": "Cadena afanumérica (como `name` pero sin `.`, `_`, `-` ni `/`)",
+            "type": "string",
+            "pattern": "^([a-z0-9])+$"
+          },
+          "name": {
+            "title": "Name",
+            "description": "An identifier string. Lower case characters with `.`, `_`, `-` and `/` are allowed.",
+            "type": "string",
+            "pattern": "^([-a-z0-9._/])+$",
+            "context": "This is ideally a url-usable and human-readable name. Name `SHOULD` be invariant, meaning it `SHOULD NOT` change when its parent descriptor is updated."
+          },
+          "path": {
+            "title": "Path",
+            "description": "A reference to the data for this resource, as either a path as a string, or an array of paths as strings. of valid URIs."
+          },
+          "data": {
+            "title": "Data",
+            "description": "Inline data for this resource."
+          },
+          "profile": {
+            "title": "Profile",
+            "description": "The profile of this descriptor.",
+            "type": "string"
+          },
+          "source": {
+            "title": "Source",
+            "description": "The method of production of the original data. If it was model-generated, source should name the model and its version, as specifically as could be useful. If it is observational, source should characterize it (e.g., 'surface observation' or 'radiosonde').",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "description": "A succinct description of what is in the dataset.",
+            "type": "string"
+          },
+          "titulo": {
+            "title": "Título",
+            "description": "Traducción al español de `title`",
+            "type": "string"
+          },
+          "schema": {
+            "title": "Table Schema",
+            "description": "A Table Schema for this resource, compliant with the [Table Schema](/tableschema/) specification.",
+            "type": "object",
+            "properties": {
+              "fields": {
+                "description": "An `array` of Table Schema Field objects.",
+                "type": "array",
+                "items": {
+                  "title": "Table Schema Field",
+                  "type": "object",
+                  "required": [
+                    "long_name",
+                    "nombre_largo"
+                  ],
+                  "properties": {
+                    "axis": {
+                      "title": "Axis",
+                      "description": "The attribute axis may be attached to a coordinate variable and given one of the values X, Y, Z or T which stand for a longitude, latitude, vertical, or time axis respectively.",
+                      "type": "string"
+                    },
+                    "description": {
+                      "title": "Description",
+                      "description": "A text description. Markdown is encouraged.",
+                      "type": "string"
+                    },
+                    "long_name": {
+                      "title": "Long Name",
+                      "description": "A descriptive name that indicates a variable’s content (written in English). This name is not standardized. The long_name attribute is defined by the NUG to contain a long descriptive name which may, for example, be used for labeling plots.",
+                      "type": "string"
+                    },
+                    "name": {
+                      "title": "Name",
+                      "description": "This property SHOULD correspond to the name of field/column in the data file (if it has a name). As such it SHOULD be unique. Name SHOULD NOT be considered case sensitive in determining uniqueness. However, since it should correspond to the name of the field in the data file it may be important to preserve case.",
+                      "type": "string"
+                    },
+                    "nombre_largo": {
+                      "title": "Nombre Largo",
+                      "description": "Traducción al espanol de long_name",
+                      "type": "string"
+                    },
+                    "standard_name": {
+                      "title": "Standard Name",
+                      "description": "The name used to identify the physical quantity. A standard name contains no whitespace and is case sensitive.",
+                      "type": "string"
+                    },
+                    "units": {
+                      "title": "Units",
+                      "description": "Representative units of the physical quantity. Unless it is dimensionless, a variable with a standard_name attribute must have units which are physically equivalent to the canonical units, possibly modified by an operation specified by the standard name modifier or by the cell_methods attribute or both.",
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

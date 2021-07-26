@@ -1,0 +1,201 @@
+#!/usr/bin/env bash
+#
+# Verifica que 'make' puede construir un objetivo dentro de un contenedor de Docker
+
+NOMBRE=${0##*/}
+
+function get_help() {
+  echo "$NOMBRE:  Verifica que 'make' puede construir un objetivo dentro de un contenedor de Docker."
+  echo
+  echo "Sintaxis:"
+  echo "  $NOMBRE [ OPCIÓN | REPO OBJETIVO [REVISIÓN [PHONY]] ]"
+  echo
+  echo "  OPCIÓN:   Alguna de las opciones que se enlistan abajo"
+  echo "  REPO:     Nombre del repositorio en bitbucket.org/IslasGECI/"
+  echo "  OBJETIVO: Nombre del objetivo (dentro del 'Makefile') del cual se desea"
+  echo "            verificar su reproducibilidad"
+  echo "  REVISIÓN: (opcional si el objetivo no es _phony_) Rama o etiqueta del"
+  echo "            repositorio. Valor por defecto: develop"
+  echo "  PHONY:    (opcional) Bandera que indica si el objetivo es _phony_ o no. Para"
+  echo "            indicar que el objetivo NO es _phony_ (es decir, se espera que"
+  echo "            'make' cree un archivo) usa 0 o false; cualquier otro valor"
+  echo "            indica que el objetivo SÍ es _phony_. Valor por defecto: 0"
+  echo
+  echo "Opciones:"
+  echo "  -h, --help     Despliega este mensaje de ayuda. $NOMBRE sin opciones ni"
+  echo "                 argumentos también despliega este mensaje de ayuda"
+  echo "  -v, --version  Muestra la versión de $NOMBRE"
+  echo
+  echo "Ejemplos:"
+  echo
+  echo "  $NOMBRE hola mundo"
+  echo
+  echo "  $NOMBRE clima_guadalupe reports/estaciones_meteorologicas.pdf master"
+  echo
+  echo "Nota:"
+  echo "  Para configurar el entorno por primera vez consulta:"
+  echo "  https://github.com/IslasGECI/misctools"
+  echo
+  exit 1
+}
+
+function get_version() {
+  echo "$NOMBRE v0.2.0+$(md5sum $0 | cut -c1-4)"
+  exit 0
+}
+
+if [[ $# == 0 ]]; then
+  get_help
+fi
+
+if [[ $# == 1 ]]; then
+  case "$1" in
+  -h | --help) get_help ;;
+  -v | --version) get_version ;;
+  *)
+    echo "La opción $1 no es válida"
+    echo
+    get_help
+    ;;
+  esac
+fi
+
+# Guarda los argumentos de entrada en variables con nombres descriptivos
+REPO=$1
+OBJETIVO=$2
+REVISION=${3:-develop}
+PHONY=${4:-0}
+
+# Construye el resto de las variable que se usarán en el script
+DIR0=${PWD} # Directorio actual del usuario
+CONTENEDOR=testmake_${REPO}_${REVISION//\//_}
+CONTENEDOR=${CONTENEDOR,,}
+IMAGEN=${CONTENEDOR}
+RUTA_CLON=${HOME}/.testmake/${REPO} # Directorio de trabajo
+TESTMAKE_LOG=${HOME}/.testmake/testmake.log.csv
+
+# Despliega argumentos recibidos para verificar que los valores sean correctos
+echo
+echo
+echo - Repositorio: $REPO
+echo - Objetivo: $OBJETIVO
+echo - Revision: $REVISION
+if [ $PHONY = 0 ] || [ "${PHONY,,}" = "false" ]; then
+  ES_PHONY=0
+else
+  ES_PHONY=1
+  echo - Phony: $PHONY
+fi
+echo
+echo
+echo "Prepara directorio de trabajo:"
+echo "------------------------------"
+
+# Borra el directorio de trabajo si ya existe, luego crealo
+if [ -d $RUTA_CLON ]; then
+  rm --force --recursive $RUTA_CLON
+fi
+mkdir --parents $RUTA_CLON
+
+# Verifica que el directorio esté vacío
+if [ ! -d $RUTA_CLON ] || [ -n "$(ls --almost-all $RUTA_CLON)" ]; then
+  echo "ERROR: No pude preparar $RUTA_CLON como directorio de trabajo"
+  exit 1
+else
+  echo $RUTA_CLON [ OK ]
+fi
+
+# Clona repositorio
+echo
+echo
+echo "Clona repositorio:"
+echo "------------------"
+git clone https://${BITBUCKET_USERNAME}:${BITBUCKET_PASSWORD}@bitbucket.org/IslasGECI/${REPO}.git $RUTA_CLON
+cd $RUTA_CLON
+git checkout --force $REVISION && git rev-parse --short $REVISION >$RUTA_CLON/.git_checkout_succeeded || rm --force $RUTA_CLON/.git_checkout_succeeded
+
+if [ -f $RUTA_CLON/.git_checkout_succeeded ]; then
+
+  # Construye imagen
+  echo
+  echo "Construye imagen:"
+  echo "-----------------"
+  docker build --no-cache --tag $IMAGEN .
+
+  # Corre contenedor
+  echo
+  echo "Corre contenedor:"
+  echo "-----------------"
+  docker run \
+    --env BITBUCKET_PASSWORD=$BITBUCKET_PASSWORD \
+    --env BITBUCKET_USERNAME=$BITBUCKET_USERNAME \
+    --name $CONTENEDOR \
+    --rm \
+    --volume /var/run/docker.sock:/var/run/docker.sock \
+    --volume $RUTA_CLON:/workdir \
+    $IMAGEN bash -c "\
+      umask 000; \
+      make $OBJETIVO \
+        && echo $(date) > .make_succeeded \
+        || rm --force .make_succeeded"
+
+fi
+
+# Elimina imagen
+docker image rm --force $IMAGEN 2>/dev/null
+
+# Determina si Make logró construir objetivo
+echo
+echo " Hecho."
+echo "-------"
+cd $DIR0
+
+# Guarda el id (hash) de la revisión
+ID=$(cat $RUTA_CLON/.git_checkout_succeeded)
+
+# Verifica si Make terminó exitosamente
+if [ -f $RUTA_CLON/.make_succeeded ]; then
+  ES_MAKE_EXISTOSO=1
+else
+  ES_MAKE_EXISTOSO=0
+fi
+
+# Crea encabezado si log no existe
+if [ ! -f $TESTMAKE_LOG ]; then
+  echo "repo,objetivo,revision,id,phony,analista,maquina,timestamp,es_make_exitoso,es_phony,existe_objetivo" >$TESTMAKE_LOG
+fi
+
+# Agrega registro al log
+function log_result() {
+  local EXISTE_OBJETIVO=$1
+  echo "${REPO},${OBJETIVO},${REVISION},${ID},${PHONY},${USER},${HOSTNAME},$(date -Iseconds),${ES_MAKE_EXISTOSO},${ES_PHONY},${EXISTE_OBJETIVO}" >>$TESTMAKE_LOG
+  URL="http://islasgeci.org:500/api/v1/records?\
+repo=${REPO}&\
+objetivo=${OBJETIVO}&\
+revision=${REVISION}&\
+id=${ID}&\
+phony=${PHONY}&\
+analista=${USER}&\
+maquina=${HOSTNAME}&\
+timestamp=$(date -Iseconds)&\
+es_make_exitoso=${ES_MAKE_EXISTOSO}&\
+es_phony=${ES_PHONY}&\
+existe_objetivo=${EXISTE_OBJETIVO}"
+  curl --location --request POST "$URL"
+}
+if [ -s $RUTA_CLON/$OBJETIVO ]; then
+  EXISTE_OBJETIVO=1
+  log_result ${EXISTE_OBJETIVO}
+  echo "EXITO: Sí pude generar objetivo $OBJETIVO"
+  exit 0
+else
+  EXISTE_OBJETIVO=0
+  log_result ${EXISTE_OBJETIVO}
+  if [ $ES_MAKE_EXISTOSO -eq 1 ] && [ $ES_PHONY -eq 1 ]; then
+    echo "ÉXITO: Sí pude ejecutar el objetivo phony $OBJETIVO"
+    exit 0
+  else
+    echo "ERROR: No pude generar objetivo $OBJETIVO"
+    exit 1
+  fi
+fi

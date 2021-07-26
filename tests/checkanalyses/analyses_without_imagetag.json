@@ -1,0 +1,102 @@
+[
+    {
+        "name": "Tendencia poblacional de cormoran en Alcatraz",
+        "docker_parent_image": "islasgeci/cormorant_population_growth:1f8f",
+        "description": "Tendencia poblacional de cormoran orejón en Alcatraz",
+        "report": "tendencia_poblacional_cormoran.pdf",
+        "results": [
+            "pngPopulationGrowRateCormorantAlcatraz.png",
+            "pngPopulationGrowRateCormorantPatos.png",
+            "pngPopulationGrowRateCormorantPajaros.png",
+            "Double-crested_Cormorant.png",
+            "csvCormorantsPopulationDecreasing.csv",
+            "csvCormorantsPopulationGrowing.csv",
+            "csvGrowthRateCormorantPacificIslands",
+            "csvCormorantBurrowsQuantityPacificIslands.csv",
+            "csvFullResultsCormorantPacificIslands.csv",
+            "csvMaximumNestsAlcatraz.csv",
+            "csvMaximumNestsPatos.csv",
+            "csvMaximumNestsPajaros.csv",
+            "growth_rate_distribution_cormorant_alcatraz.csv",
+            "growth_rate_distribution_cormorant_patos.csv",
+            "growth_rate_distribution_cormorant_pajaros.csv",
+            "cormorant_all_islets_growth_rates.csv"
+        ],
+        "scripts": [
+            "src/calculate_cormorant_growth_rate",
+            "src/calculate_max_nest_quantity",
+            "src/calculate_burrows_quantity_per_species"
+        ],
+        "data": [
+            {
+                "source": "tabular_data_packages",
+                "version": "ed1aa16e170889afc22efc27949ef420664bd4f7",
+                "path": "conteo_nidos_cormoran_todas_islas",
+                "type": "csv",
+                "filename": "conteo_nidos_cormoran_todas_islas.csv"
+            },
+            {
+                "source": "tabular_data_packages",
+                "version": "be27a96dc6280b16f556a962508a6b5d4b7fbea1",
+                "path": "parejas_aves_marinas_islas_del_pacifico",
+                "type": "csv",
+                "filename": "parejas_aves_marinas_islas_del_pacifico.csv"
+            }
+        ],
+        "requirements": []
+    },
+    {
+        "docker_parent_image": "islasgeci/isla-guadalupe:17f9",
+        "name": "Densidad de madrigueras de mérgulo a partir de busquedas exhaustivas",
+        "description": "Mapas de densidad de madrigueras de mérgulo en Isla Guadalupe durante las temporadas 2014-2018.",
+        "report": "mapa_densidad_censo.pdf",
+        "results": [
+            "densidad_mergulo_2014_morro_prieto.png",
+            "densidad_mergulo_2014_zapato.png",
+            "densidad_mergulo_2015_morro_prieto.png",
+            "densidad_mergulo_2015_zapato.png",
+            "densidad_mergulo_2016_morro_prieto.png",
+            "densidad_mergulo_2016_zapato.png",
+            "densidad_mergulo_2017_morro_prieto.png",
+            "densidad_mergulo_2017_zapato.png",
+            "densidad_mergulo_2018_morro_prieto.png",
+            "densidad_mergulo_2018_zapato.png",
+            "densidad_mergulo_todas_temporadas_morro_prieto.png",
+            "densidad_mergulo_todas_temporadas_zapato.png"
+        ],
+        "scripts": [
+            "src/plot_burrows_density_map"
+        ],
+        "data": [
+            {
+                "source": "tabular_data_packages",
+                "version": "6c0e509a946aa99707177e1adb69cb68c287de9f",
+                "path": "nidos_busqueda_aves_marinas",
+                "type": "csv",
+                "filename": "nidos_busqueda_aves_marinas.csv"
+            },
+            {
+                "source": "tabular_data_packages",
+                "version": "b205951ba7d1720891edc9645cf5eceb669fdda6",
+                "path": "nidos_busqueda_aves_marinas",
+                "type": "json",
+                "filename": "datapackage.json"
+            },
+            {
+                "source": "archivos_binarios",
+                "version": "d60fea2117a3c2f23be256ff34c112e1a2bd957c",
+                "path": "shp/guadalupe",
+                "type": "shp",
+                "filename": "linea_costa_isla_guadalupe.shp"
+            },
+            {
+                "source": "archivos_binarios",
+                "version": "d60fea2117a3c2f23be256ff34c112e1a2bd957c",
+                "path": "shp/guadalupe",
+                "type": "shx",
+                "filename": "linea_costa_isla_guadalupe.shx"
+            }
+        ],
+        "requirements": []
+    }
+]
