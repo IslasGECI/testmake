@@ -1,5 +1,5 @@
 tests: install
-	shellspec
+	shellspec tests
 
 # Enlista phonies
 .PHONY: \
