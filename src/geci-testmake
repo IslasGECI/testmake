@@ -218,9 +218,3 @@ else
     exit 1
   fi
 fi
-
-function get_permission_from_tablero_API () {
-  URL="http://localhost:500/api/v1/login"
-  HTTP_CODE=$(curl --write-out "%{http_code}\n" --header "Authorization: ${TABLERO_API_SECRET_KEY}" --request POST "${URL}" --silent)
-  echo $HTTP_CODE
-}
