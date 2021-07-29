@@ -1,21 +1,10 @@
-# 🛠️ Herramientas Misceláneas (MiscTools)
+# TestMake
 
-Conjunto de herramientas pequeñas y prototipos del equipo de Ciencia de Datos de GECI.
+TestMake verifica que Make puede construir un objetivo dentro de un contenedor de Docker
 
-## 🧰 Lista de herramientas
+## 📋 Prerequisitos
 
-
-| Herramienta         | Descripción  |
-| ------------------- | ------------ |
-| geci-checkanalyses  | Usa jsonschema para verificar la estructura de analyses.json  |
-| geci-tdp2xls        | Transforma tabular data packages a Excel  |
-| geci-testmake       | Verifica que 'make' puede construir un objetivo dentro de un contenedor de Docker  |
-| geci-validate       | Verifica que un data package cumple con el protocolo de GECI  |
-
-
-## 📋 Prerequisitos para `geci-testmake`
-
-Estas instrucciones son para instalar y configurar MiscTools en Ubuntu 20.04 (Focal Fossa).
+Estas instrucciones son para instalar y configurar TestMake en Ubuntu 20.04 (Focal Fossa).
 
 Instala cURL, Git, Make y Docker.
 
@@ -37,54 +26,37 @@ Verifica que puedes correr Docker sin `sudo`:
 ```shell
 docker run hello-world
 ```
-### 📋 Prerequisitos para `geci-checkanalyses`
-
-Instala `jsonschema`.
-```
-$ pip install jsonschema
-```
-
-### 📋 Prerequisitos para `geci-validate`
-
-Instala `goodtables`.
-```shell
-pip install goodtables
-```
-
 ## 🛂 Credenciales de Bitbucket
 
-Al final de tu archivo `~/.profile`, agrega las dos líneas siguientes:
+Al final de tu archivo `~/.profile`, agrega la líne siguiente:
 
 ```shell
-export BITBUCKET_USERNAME=<USUARIO>
-export BITBUCKET_PASSWORD=<CONTRASEÑA>
+source $HOME/.vault/.secrets
 ```
-
-(Sustituye `<USUARIO>` y `<CONTRASEÑA>` con las credenciales correspondientes)
 
 Ejecuta `~/.profile` para cargar tus credenciales de Bitbucket como variables de entorno.
 
 ```shell
-. ~/.profile
+source ~/.profile
 ```
 
-## 🏗️ Instalación de MiscTools
+## 🏗️ Instalación de TestMake
 
 ```shell
-git clone https://github.com/IslasGECI/misctools.git
-cd misctools
+git clone https://github.com/IslasGECI/testmake.git
+cd testmake
 sudo make install
 cd ..
-sudo rm --recursive misctools
+sudo rm --recursive testmake
 ```
 
 ## ✅ Verifica la instalación
 
-Para verificar la instalación ejecutaremos una de las herramientas instaladas:
+Para verificar la instalación ejecutaremos:
 
 ```shell
 geci-testmake hola mundo
 ```
 
-Un mensaje te confirmará que `geci-testmake` se ejecutó exitosamente y por lo tanto MiscTools fue
+Un mensaje te confirmará que `geci-testmake` se ejecutó exitosamente y por lo tanto TestMake fue
 instalado correctamente.
