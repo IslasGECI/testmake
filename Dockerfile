@@ -21,6 +21,7 @@ RUN apt-get update && apt-get install --yes --no-install-recommends \
 
 # Instala ShellSpec
 RUN curl --fail --location https://git.io/shellspec --show-error --silent | sh -s -- --yes
+RUN shellspec --init
 
 # Instala testmake
 RUN make install
