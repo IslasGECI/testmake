@@ -86,6 +86,24 @@ else
   ES_PHONY=1
   echo - Phony: $PHONY
 fi
+
+# Verifica que la variable de entorno <TABLERO_API_SECRET_KEY> se encuentre definida
+if [[ -z ${TABLERO_API_SECRET_KEY} ]];
+then
+    echo
+    echo
+    echo "La variable de entorno <TABLERO_API_SECRET_KEY> no esta definida"
+    echo "Fin del proceso."
+    echo "------------------------------------------------------------------"
+    exit 1
+else
+    echo
+    echo
+    echo "La variable de entorno <TABLERO_API_SECRET_KEY> esta definida,"
+    echo "Continuando con el proceso..."
+    echo "------------------------------------------------------------------"
+fi
+
 echo
 echo
 echo "Prepara directorio de trabajo:"
@@ -181,7 +199,7 @@ timestamp=$(date -Iseconds)&\
 es_make_exitoso=${ES_MAKE_EXISTOSO}&\
 es_phony=${ES_PHONY}&\
 existe_objetivo=${EXISTE_OBJETIVO}"
-  curl --location --request POST "$URL"
+  curl --header "Authorization: ${TABLERO_API_SECRET_KEY}" --location --request POST "${URL}"
 }
 
 if [ -s $RUTA_CLON/$OBJETIVO ]; then
@@ -200,3 +218,9 @@ else
     exit 1
   fi
 fi
+
+function get_permission_from_tablero_API () {
+  URL="http://localhost:500/api/v1/login"
+  HTTP_CODE=$(curl --write-out "%{http_code}\n" --header "Authorization: ${TABLERO_API_SECRET_KEY}" --request POST "${URL}" --silent)
+  echo $HTTP_CODE
+}
