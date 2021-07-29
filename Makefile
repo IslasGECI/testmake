@@ -1,6 +1,3 @@
-tests: install
-	shellspec tests
-
 # Enlista phonies
 .PHONY: \
 		install \
@@ -11,3 +8,6 @@ install:
 	chmod +x ./src/geci-testmake
 	mkdir --parents /usr/local/bin
 	cp --preserve ./src/geci-testmake /usr/local/bin
+
+tests: install
+	shellspec tests
