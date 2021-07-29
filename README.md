@@ -1,21 +1,10 @@
-# 🛠️ Herramientas Misceláneas (testmake)
+# TestMake
 
-Conjunto de herramientas pequeñas y prototipos del equipo de Ciencia de Datos de GECI.
-
-## 🧰 Lista de herramientas
-
-
-| Herramienta         | Descripción  |
-| ------------------- | ------------ |
-| geci-checkanalyses  | Usa jsonschema para verificar la estructura de analyses.json  |
-| geci-tdp2xls        | Transforma tabular data packages a Excel  |
-| geci-testmake       | Verifica que 'make' puede construir un objetivo dentro de un contenedor de Docker  |
-| geci-validate       | Verifica que un data package cumple con el protocolo de GECI  |
-
+TestMake verifica que Make puede construir un objetivo dentro de un contenedor de Docker
 
 ## 📋 Prerequisitos
 
-Estas instrucciones son para instalar y configurar testmake en Ubuntu 20.04 (Focal Fossa).
+Estas instrucciones son para instalar y configurar TestMake en Ubuntu 20.04 (Focal Fossa).
 
 Instala cURL, Git, Make y Docker.
 
@@ -39,22 +28,19 @@ docker run hello-world
 ```
 ## 🛂 Credenciales de Bitbucket
 
-Al final de tu archivo `~/.profile`, agrega las dos líneas siguientes:
+Al final de tu archivo `~/.profile`, agrega la líne siguiente:
 
 ```shell
-export BITBUCKET_USERNAME=<USUARIO>
-export BITBUCKET_PASSWORD=<CONTRASEÑA>
+source $HOME/.vault/.secrets
 ```
-
-(Sustituye `<USUARIO>` y `<CONTRASEÑA>` con las credenciales correspondientes)
 
 Ejecuta `~/.profile` para cargar tus credenciales de Bitbucket como variables de entorno.
 
 ```shell
-. ~/.profile
+source ~/.profile
 ```
 
-## 🏗️ Instalación de testmake
+## 🏗️ Instalación de TestMake
 
 ```shell
 git clone https://github.com/IslasGECI/testmake.git
@@ -66,11 +52,11 @@ sudo rm --recursive testmake
 
 ## ✅ Verifica la instalación
 
-Para verificar la instalación ejecutaremos una de las herramientas instaladas:
+Para verificar la instalación ejecutaremos:
 
 ```shell
 geci-testmake hola mundo
 ```
 
-Un mensaje te confirmará que `geci-testmake` se ejecutó exitosamente y por lo tanto testmake fue
+Un mensaje te confirmará que `geci-testmake` se ejecutó exitosamente y por lo tanto TestMake fue
 instalado correctamente.
