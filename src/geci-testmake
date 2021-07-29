@@ -40,7 +40,7 @@ function get_help() {
 }
 
 function get_version() {
-  echo "$NOMBRE v0.2.0+$(md5sum $0 | cut -c1-4)"
+  echo "$NOMBRE v0.3.0+$(md5sum $0 | cut -c1-4)"
   exit 0
 }
 
