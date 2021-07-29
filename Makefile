@@ -1,5 +1,5 @@
 tests: install
-	. ./tests/test_make-install
+	. ./tests/test_make-install.sh
 	cd tests && . ./test_geci-tdp2xls
 	shellspec
 
