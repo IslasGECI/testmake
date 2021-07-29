@@ -8,13 +8,8 @@ tests: install
 		install \
 		tests
 
-# Instala estas herramientas miscelaneas
+# Instala TestMake
 install:
-	# Copia ejecutables
-	chmod +x ./src/*
+	chmod +x ./src/geci-testmake
 	mkdir --parents /usr/local/bin
-	cp --preserve ./src/* /usr/local/bin
-	export PATH="/usr/local/bin:$${PATH}"
-	# Instala esquemas de JSONs
-	mkdir --parents /usr/local/bin $${HOME}/.schemas
-	cp schemas/*.json $${HOME}/.schemas/
+	cp --preserve ./src/geci-testmake /usr/local/bin
