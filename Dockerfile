@@ -10,14 +10,12 @@ ENV QT_QPA_PLATFORM=offscreen
 ENV TZ=US/Pacific
 
 # Instala paquetes en el sistema operativo
-RUN apt-get update && apt-get install --yes --no-install-recommends apt-utils
-RUN apt-get update && apt-get install --yes --no-install-recommends \
+RUN apt update && apt install --no-install-recommends --yes \
     ca-certificates \
     curl \
     git \
     make \
-    && \
-    apt clean
+    && apt clean
 
 # Instala ShellSpec
 RUN curl --fail --location https://git.io/shellspec --show-error --silent | sh -s -- --yes
