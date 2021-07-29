@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-rm --force /usr/local/bin/geci-*
-make install
-ls /usr/local/bin/geci-*
