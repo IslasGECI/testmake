@@ -12,11 +12,11 @@ ENV TZ=US/Pacific
 # Instala paquetes en el sistema operativo
 RUN apt-get update && apt-get install --yes --no-install-recommends apt-utils
 RUN apt-get update && apt-get install --yes --no-install-recommends \
-      ca-certificates \
-      curl \
-      git \
-      make \
-        && \
+    ca-certificates \
+    curl \
+    git \
+    make \
+    && \
     apt clean
 
 # Instala ShellSpec
