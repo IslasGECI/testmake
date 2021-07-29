@@ -183,6 +183,7 @@ es_phony=${ES_PHONY}&\
 existe_objetivo=${EXISTE_OBJETIVO}"
   curl --location --request POST "$URL"
 }
+
 if [ -s $RUTA_CLON/$OBJETIVO ]; then
   EXISTE_OBJETIVO=1
   log_result ${EXISTE_OBJETIVO}
