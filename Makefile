@@ -10,4 +10,4 @@ install:
 	cp --preserve ./src/geci-testmake /usr/local/bin
 
 tests: install
-	shellspec tests
+	shellspec --shell bash tests
