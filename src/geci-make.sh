@@ -13,7 +13,7 @@ function pull_repository {
   repository=$1
   branch=$2
   mkdir --parents "${HOME}/.geci-make/"
-  cd "${HOME}/.geci-make/"
+  cd "${HOME}/.geci-make/" || return
   [ ! -d "${repository}" ] && git clone git@bitbucket.org:IslasGECI/"${repository}".git
   cd "${repository}" || return
   git checkout "${branch}"
