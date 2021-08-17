@@ -1,9 +1,13 @@
 # Enlista phonies
 .PHONY: \
+		check \
 		install \
 		tests
 
 # Instala TestMake
+check:
+	shellcheck --shell=bash src/*.sh
+
 install:
 	chmod +x ./src/geci-testmake
 	mkdir --parents /usr/local/bin
