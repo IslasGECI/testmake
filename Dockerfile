@@ -15,6 +15,7 @@ RUN apt update && apt install --no-install-recommends --yes \
     curl \
     git \
     make \
+    shellcheck \
     && apt clean
 
 # Instala ShellSpec
