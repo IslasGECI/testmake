@@ -8,6 +8,6 @@ End
 Describe 'version'
   It 'return version of geci-testmake'
     When call src/geci-testmake --version
-    The line 1 of output should equal '/usr/local/bin/geci-testmake'
+    The line 1 of output should start with 'geci-testmake v0.4.0+'
   End
 End
