@@ -4,3 +4,10 @@ Describe 'make install'
     The line 6 of output should equal '/usr/local/bin/geci-testmake'
   End
 End
+
+Describe 'version'
+  It 'return version of geci-testmake'
+    When call src/geci-testmake --version
+    The line 1 of output should equal '/usr/local/bin/geci-testmake'
+  End
+End
