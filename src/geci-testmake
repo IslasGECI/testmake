@@ -44,6 +44,16 @@ function get_version() {
   exit 0
 }
 
+function verify_if_directory_is_empty() {
+  if [ ! -d $RUTA_CLON ] || [ -n "$(ls --almost-all $RUTA_CLON)" ]; then
+    echo "ERROR: No pude preparar $RUTA_CLON como directorio de trabajo"
+    exit 1
+  else
+    echo $RUTA_CLON [ OK ]
+  fi
+}
+
+
 if [[ $# == 0 ]]; then
   get_help
 fi
@@ -116,12 +126,7 @@ fi
 mkdir --parents $RUTA_CLON
 
 # Verifica que el directorio esté vacío
-if [ ! -d $RUTA_CLON ] || [ -n "$(ls --almost-all $RUTA_CLON)" ]; then
-  echo "ERROR: No pude preparar $RUTA_CLON como directorio de trabajo"
-  exit 1
-else
-  echo $RUTA_CLON [ OK ]
-fi
+verify_if_directory_is_empty $RUTA_CLON
 
 # Clona repositorio
 echo
