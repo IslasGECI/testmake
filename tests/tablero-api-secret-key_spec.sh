@@ -6,18 +6,23 @@ Describe 'geci-testmake'
     The status should be failure
   End
 
-  Mock mkdir
-    exit 0
+  It 'Verify if directory is empty'
+    export TABLERO_API_SECRET_KEY=dummy_key
+    When call src/geci-testmake hola mundo
+    The line 15 of stdout should equal '/root/.testmake/hola [ OK ]'
   End
 
   It 'Accepts TABLERO_API_SECRET_KEY'
     export TABLERO_API_SECRET_KEY=dummy_key
     When call src/geci-testmake hola mundo
     The line 8 of stdout should equal 'La variable de entorno <TABLERO_API_SECRET_KEY> esta definida,'
-    The status should be failure
   End
 
-  It 'Verify empty directory'
+  Mock mkdir
+    exit 0
+  End
+
+  It 'Verify if directory exists'
     export TABLERO_API_SECRET_KEY=dummy_key
     When call src/geci-testmake hola mundo
     The line 15 of stdout should equal 'ERROR: No pude preparar /root/.testmake/hola como directorio de trabajo'
