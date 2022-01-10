@@ -126,7 +126,7 @@ fi
 mkdir --parents $RUTA_CLON
 
 # Verifica que el directorio esté vacío
-verify_if_directory_is_empty $RUTA_CLON
+verify_if_directory_is_empty
 
 # Clona repositorio
 echo
