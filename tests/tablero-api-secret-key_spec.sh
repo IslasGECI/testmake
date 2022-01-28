@@ -6,7 +6,7 @@ Describe 'geci-testmake'
     The status should be failure
   End
 
-  It 'Verify if directory is empty'
+  It 'Verify that directory is empty'
     export TABLERO_API_SECRET_KEY=dummy_key
     When call src/geci-testmake hola mundo
     The line 15 of stdout should equal '/root/.testmake/hola [ OK ]'
@@ -22,7 +22,7 @@ Describe 'geci-testmake'
     exit 0
   End
 
-  It 'Verify if directory exists'
+  It 'Verify that directory is not empty'
     export TABLERO_API_SECRET_KEY=dummy_key
     When call src/geci-testmake hola mundo
     The line 15 of stdout should equal 'ERROR: No pude preparar /root/.testmake/hola como directorio de trabajo'
