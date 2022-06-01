@@ -2,6 +2,9 @@
 #
 # Verifica que 'make' puede construir un objetivo dentro de un contenedor de Docker
 
+# Set strict mode (http://redsymbol.net/articles/unofficial-bash-strict-mode)
+set -euo pipefail
+
 NOMBRE=${0##*/}
 
 function get_help() {

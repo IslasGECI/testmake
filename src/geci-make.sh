@@ -5,6 +5,9 @@
 # Usage: ./src/geci-make.sh <REPOSITORY> <REPORT> <BRANCH>
 # Example: ./src/geci-make.sh isla-guadalupe mapa_densidad_censo.pdf develop
 
+# Set strict mode (http://redsymbol.net/articles/unofficial-bash-strict-mode)
+set -euo pipefail
+
 repository=$1
 report=$2
 branch=${3:-develop}
