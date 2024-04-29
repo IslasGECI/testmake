@@ -144,19 +144,13 @@ if [ -f $RUTA_CLON/.git_checkout_succeeded ]; then
   echo
   echo "Corre contenedor:"
   echo "-----------------"
-  docker run \
-    --env BITBUCKET_PASSWORD=$BITBUCKET_PASSWORD \
-    --env BITBUCKET_USERNAME=$BITBUCKET_USERNAME \
-    --name $CONTENEDOR \
-    --rm \
-    --volume /var/run/docker.sock:/var/run/docker.sock \
-    --volume $RUTA_CLON:/workdir \
-    $IMAGEN bash -c "\
-      umask 000; \
-      make $OBJETIVO \
-        && echo $(date) > .make_succeeded \
-        || rm --force .make_succeeded"
-
+  container_runner run-container \
+    --password $BITBUCKET_PASSWORD \
+    --username $BITBUCKET_USERNAME \
+    --image $IMAGEN \
+    --container $CONTENEDOR \
+    --path $RUTA_CLON \
+    --target $OBJETIVO
 fi
 
 # Elimina imagen
