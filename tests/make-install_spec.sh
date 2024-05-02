@@ -6,4 +6,5 @@ Describe 'make install'
   It 'install dependencies'
     When call container-runner --help
     The output should include 'container-runner'
+  End
 End
