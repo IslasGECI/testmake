@@ -18,6 +18,7 @@ install: check_requirements
 	mkdir --parents /usr/local/bin
 	cp --preserve ./src/geci-* /usr/local/bin
 	pipx install container-runner==0.1.0
+	pipx ensurepath
 
 tests: install
 	shellspec --shell bash tests
