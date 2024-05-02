@@ -36,7 +36,7 @@ function get_help() {
   echo "  Para configurar el entorno por primera vez consulta:"
   echo "  https://github.com/IslasGECI/testmake"
   echo
-  exit 1
+  exit 0
 }
 
 function get_version() {
