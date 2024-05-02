@@ -2,7 +2,10 @@
 .PHONY: \
 		check \
 		check_requirements \
+		clean \
+		init \
 		install \
+		setup \
 		tests
 
 # Instala TestMake
@@ -13,6 +16,10 @@ check_requirements:
 	@echo "Checking requirements for installation:"
 	pipx --version
 
+clean:
+
+init: setup tests
+
 install: check_requirements
 	chmod +x ./src/geci-*
 	mkdir --parents /usr/local/bin
@@ -20,5 +27,7 @@ install: check_requirements
 	pipx install container-runner==0.1.0
 	pipx ensurepath
 
-tests: install
+setup: clean install
+
+tests:
 	shellspec --shell bash tests
