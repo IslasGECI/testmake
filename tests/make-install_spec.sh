@@ -1,7 +1,7 @@
 Describe 'make install'
   It 'copies geci-testmake'
-    When call tests/test_make-install.sh
-    The line 9 of output should equal '/usr/local/bin/geci-testmake'
+    When call geci-testmake --help
+    The output should include "Verifica que 'make' puede construir un objetivo"
   End
   It 'install dependencies'
     When call container-runner --help
