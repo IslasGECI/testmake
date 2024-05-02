@@ -1,4 +1,6 @@
 Describe 'make install'
+  setup() { export PATH="$PATH:/root/.local/bin" ; }
+  BeforeAll 'setup'
   It 'copies geci-testmake'
     When call geci-testmake --help
     The output should include "Verifica que 'make' puede construir un objetivo"
