@@ -11,13 +11,13 @@ check:
 
 check_requirements:
 	@echo "Checking requirements for installation:"
-	pip --version
+	pipx --version
 
 install: check_requirements
 	chmod +x ./src/geci-*
 	mkdir --parents /usr/local/bin
 	cp --preserve ./src/geci-* /usr/local/bin
-	pip install container-runner==0.1.0
+	pipx install container-runner==0.1.0
 
 tests: install
 	shellspec --shell bash tests

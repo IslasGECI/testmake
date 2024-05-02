@@ -15,7 +15,7 @@ RUN apt update && apt install --no-install-recommends --yes \
     curl \
     git \
     make \
-    pip \
+    pipx \
     shellcheck \
     && apt clean
 
