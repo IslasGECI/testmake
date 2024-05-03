@@ -16,6 +16,10 @@ check_requirements:
 	@echo "Checking requirements for installation:"
 	pip --version
 
+check_requirements_in_container:
+	@echo "Checking requirements for installation:"
+	pipx --version
+
 clean:
 
 init: setup tests
@@ -28,11 +32,11 @@ install: check_requirements
 	cp --preserve ./src/geci-* /usr/local/bin
 	pip install container-runner==0.1.0
 
-install_in_container: check_requirements
+install_in_container: check_requirements_in_container
 	chmod +x ./src/geci-*
 	mkdir --parents /usr/local/bin
 	cp --preserve ./src/geci-* /usr/local/bin
-	sudo -H pip install container-runner==0.1.0
+	pipx install container-runner==0.1.0
 
 
 setup: clean install
