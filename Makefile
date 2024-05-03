@@ -20,6 +20,8 @@ clean:
 
 init: setup tests
 
+init_in_container: setup_in_container tests
+
 install: check_requirements
 	chmod +x ./src/geci-*
 	mkdir --parents /usr/local/bin
@@ -34,6 +36,8 @@ install_in_container: check_requirements
 
 
 setup: clean install
+
+setup_in_container: clean install_in_container
 
 tests:
 	shellspec --shell bash tests

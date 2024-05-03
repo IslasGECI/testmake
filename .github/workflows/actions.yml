@@ -12,4 +12,4 @@ jobs:
     - name: Construye imagen
       run: docker build --tag islasgeci/testmake .
     - name: Ejecuta pruebas
-      run: docker run islasgeci/testmake make init
+      run: docker run islasgeci/testmake make init_in_container
