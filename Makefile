@@ -14,7 +14,7 @@ check:
 
 check_requirements:
 	@echo "Checking requirements for installation:"
-	pipx --version
+	pip --version
 
 clean:
 
@@ -24,8 +24,7 @@ install: check_requirements
 	chmod +x ./src/geci-*
 	mkdir --parents /usr/local/bin
 	cp --preserve ./src/geci-* /usr/local/bin
-	pipx install container-runner==0.1.0
-	pipx ensurepath
+	pip install container-runner==0.1.0
 
 setup: clean install
 

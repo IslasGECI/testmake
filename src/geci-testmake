@@ -144,7 +144,7 @@ if [ -f $RUTA_CLON/.git_checkout_succeeded ]; then
   echo
   echo "Corre contenedor:"
   echo "-----------------"
-  /root/.local/bin/container_runner run-container \
+  container_runner run-container \
     --password $BITBUCKET_PASSWORD \
     --username $BITBUCKET_USERNAME \
     --image $IMAGEN \
