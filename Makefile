@@ -26,6 +26,13 @@ install: check_requirements
 	cp --preserve ./src/geci-* /usr/local/bin
 	pip install container-runner==0.1.0
 
+install_in_container: check_requirements
+	chmod +x ./src/geci-*
+	mkdir --parents /usr/local/bin
+	cp --preserve ./src/geci-* /usr/local/bin
+	sudo -H pip install container-runner==0.1.0
+
+
 setup: clean install
 
 tests:
