@@ -21,4 +21,4 @@ jobs:
         TABLERO_API_SECRET_KEY: ${{ secrets.TABLERO_API_SECRET_KEY }}
         BITBUCKET_USERNAME: ${{ secrets.BITBUCKET_USERNAME }}
         BITBUCKET_PASSWORD: ${{ secrets.BITBUCKET_PASSWORD }}
-      run: cat ~/.ssh/knownhost
+      run: cat ~/.ssh/known_host
