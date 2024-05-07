@@ -128,7 +128,7 @@ echo
 echo
 echo "Clona repositorio:"
 echo "------------------"
-git clone git@bitbucket.org:IslasGECI/${REPO}.git $RUTA_CLON
+git clone https://${BITBUCKET_USERNAME}:${BITBUCKET_PASSWORD}@bitbucket.org/IslasGECI/${REPO}.git $RUTA_CLON
 cd $RUTA_CLON
 git checkout --force $REVISION && git rev-parse --short $REVISION >$RUTA_CLON/.git_checkout_succeeded || rm --force $RUTA_CLON/.git_checkout_succeeded
 
