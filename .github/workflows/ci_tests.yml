@@ -21,4 +21,4 @@ jobs:
         TABLERO_API_SECRET_KEY: ${{ secrets.TABLERO_API_SECRET_KEY }}
         BITBUCKET_USERNAME: ${{ secrets.BITBUCKET_USERNAME }}
         BITBUCKET_PASSWORD: ${{ secrets.BITBUCKET_PASSWORD }}
-      run: geci-testmake hola mundo
+      run: ssh-keyscan "bitbucket.org" > "/root/.ssh/known_hosts" && geci-testmake hola mundo
