@@ -16,7 +16,7 @@ jobs:
       uses: actions/checkout@main
       with:
         ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
-        submoduls: true
+        submodules: true
     - name: Instala geci-testmake
       run: make install
     - name: Dummy geci-testmake
