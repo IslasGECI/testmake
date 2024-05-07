@@ -7,6 +7,11 @@ jobs:
   actions:
     runs-on: ubuntu-latest
     steps:
+    - name: Install SSH key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.SSH_KEY }}
+        known_hosts: bitbucket.org
     - name: Copia repositorio
       uses: actions/checkout@main
     - name: Instala geci-testmake
@@ -16,6 +21,4 @@ jobs:
         TABLERO_API_SECRET_KEY: ${{ secrets.TABLERO_API_SECRET_KEY }}
         BITBUCKET_USERNAME: ${{ secrets.BITBUCKET_USERNAME }}
         BITBUCKET_PASSWORD: ${{ secrets.BITBUCKET_PASSWORD }}
-      with:
-        known_hosts: bitbucket.org
       run: geci-testmake hola mundo
