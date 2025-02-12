@@ -17,3 +17,4 @@ jobs:
         BITBUCKET_USERNAME: ${{ secrets.BITBUCKET_USERNAME }}
         BITBUCKET_PASSWORD: ${{ secrets.BITBUCKET_PASSWORD }}
       run: geci-testmake hola mundo
+      run: geci-testmake glmm_petrel_san_benito reports/biological_variables_differences_BLSP_san_benito.pdf
