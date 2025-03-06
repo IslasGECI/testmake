@@ -1,8 +1,13 @@
 name: Daily test
 on:
-  push:
-    branches:
-      - develop
+  workflow_dispatch:
+    inputs:
+      Repository:
+        description: "Repository"
+        default: "hola"
+      Report:
+        description: "Report"
+        default: "mundo"
 jobs:
   actions:
     runs-on: ubuntu-latest
@@ -16,16 +21,4 @@ jobs:
         TABLERO_API_SECRET_KEY: ${{ secrets.TABLERO_API_SECRET_KEY }}
         BITBUCKET_USERNAME: ${{ secrets.BITBUCKET_USERNAME }}
         BITBUCKET_PASSWORD: ${{ secrets.BITBUCKET_PASSWORD }}
-      run: geci-testmake hola mundo
-    - name: geci-testmake glmm_petrel_san_benito biological_variables_differences_BLSP_san_benito
-      env:
-        TABLERO_API_SECRET_KEY: ${{ secrets.TABLERO_API_SECRET_KEY }}
-        BITBUCKET_USERNAME: ${{ secrets.BITBUCKET_USERNAME }}
-        BITBUCKET_PASSWORD: ${{ secrets.BITBUCKET_PASSWORD }}
-      run: geci-testmake glmm_petrel_san_benito reports/biological_variables_differences_BLSP_san_benito.pdf
-    - name: geci-testmake tosh_population_size tosh_population_dynamics
-      env:
-        TABLERO_API_SECRET_KEY: ${{ secrets.TABLERO_API_SECRET_KEY }}
-        BITBUCKET_USERNAME: ${{ secrets.BITBUCKET_USERNAME }}
-        BITBUCKET_PASSWORD: ${{ secrets.BITBUCKET_PASSWORD }}
-      run: geci-testmake tosh_population_size reports/tosh_population_dynamics.pdf
+      run: geci-testmake ${{ github.event.inputs.Repository }} ${{ github.event.inputs.Report }}
