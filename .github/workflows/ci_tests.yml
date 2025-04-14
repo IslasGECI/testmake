@@ -9,7 +9,7 @@ on:
         description: "Report"
         default: "mundo"
 jobs:
-  testmake:
+  testmake ${{ github.event.inputs.Report }}:
     runs-on: ubuntu-latest
     steps:
     - name: Copia repositorio
