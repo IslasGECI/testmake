@@ -1,4 +1,4 @@
-name: Testmake ${{ github.event.inputs.Report }}
+name: Testmake
 on:
   workflow_dispatch:
     inputs:
