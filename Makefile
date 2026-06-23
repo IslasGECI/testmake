@@ -30,13 +30,13 @@ install: check_requirements
 	chmod +x ./src/geci-*
 	mkdir --parents /usr/local/bin
 	cp --preserve ./src/geci-* /usr/local/bin
-	pip install container-runner==0.1.0
+	pip install container-runner
 
 install_in_container: check_requirements_in_container
 	chmod +x ./src/geci-*
 	mkdir --parents /usr/local/bin
 	cp --preserve ./src/geci-* /usr/local/bin
-	pipx install container-runner==0.1.0
+	pipx install container-runner
 
 
 setup: clean install

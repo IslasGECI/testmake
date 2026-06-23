@@ -1,4 +1,4 @@
-FROM ubuntu:24.04
+FROM ubuntu:latest
 WORKDIR /workdir
 COPY . .
 
